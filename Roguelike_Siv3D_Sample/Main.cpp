@@ -386,8 +386,7 @@ public:
 
 void Main() {
 	std::unique_ptr<MainFrame> main_frame(new(std::nothrow) MainFrame);
-	if (main_frame) {
-		main_frame->Init();
-		while (System::Update()) main_frame->Loop();
-	}
+	if (!main_frame) return;
+	main_frame->Init();
+	while (System::Update()) main_frame->Loop();
 }
