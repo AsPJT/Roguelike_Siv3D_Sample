@@ -1,6 +1,14 @@
+ï»¿/*#######################################################################################
+	Copyright (c) 2018-2022 As Project
+	https://github.com/AsPJT/Roguelike_Siv3D_Sample
+	wanotaitei@gmail.com
+
+	Distributed under the Boost Software License, Version 1.0. (See accompanying
+	file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#######################################################################################*/
 #pragma once
 
-//•`‰æƒtƒ‰ƒOŠÇ—
+//æç”»ãƒ•ãƒ©ã‚°ç®¡ç†
 struct DrawFlag {
 	bool main_map{ true };
 	bool sub_map{ true };
@@ -8,13 +16,13 @@ struct DrawFlag {
 	bool hp_bar{ true };
 };
 
-//ƒCƒxƒ“ƒgƒtƒ‰ƒOŠÇ—
+//ã‚¤ãƒ™ãƒ³ãƒˆãƒ•ãƒ©ã‚°ç®¡ç†
 struct EventFlag {
-	bool finished_walking{ false }; //1ƒ}ƒXˆÚ“®‚µ‚½
-	bool next_floor{ false }; //Ÿ‚ÌŠK‚Ös‚­
+	bool finished_walking{ false }; //1ãƒã‚¹ç§»å‹•ã—ãŸæ™‚
+	bool next_floor{ false }; //æ¬¡ã®éšã¸è¡Œãæ™‚
 
-	bool die{ false }; //€‚ñ‚¾
-	bool hungry{ false }; //‚¨• ‚ªŒÀŠE‚Ì
+	bool die{ false }; //æ­»ã‚“ã æ™‚
+	bool hungry{ false }; //ãŠè…¹ãŒé™ç•Œã®æ™‚
 
 	bool is_next_floor_time{ false };
 	bool is_die_time{ false };

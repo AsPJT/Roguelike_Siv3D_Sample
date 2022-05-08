@@ -1,3 +1,11 @@
+ï»¿/*#######################################################################################
+	Copyright (c) 2018-2022 As Project
+	https://github.com/AsPJT/Roguelike_Siv3D_Sample
+	wanotaitei@gmail.com
+
+	Distributed under the Boost Software License, Version 1.0. (See accompanying
+	file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#######################################################################################*/
 #pragma once
 
 
@@ -48,25 +56,25 @@ enum : dtl::type::size {
 template<typename Int_, typename Float_>
 struct Agent {
 	
-	//Šî–{“I‚Èî•ñ
+	//åŸºæœ¬çš„ãªæƒ…å ±
 	
-	dtl::type::size agent_type{ agent_type_empty }; //ƒG[ƒWƒFƒ“ƒg‚Ìí—Ş
-	dtl::type::size walking_type{ walking_type_empty }; //•às‚Ìí—Ş
-	dtl::type::size intelligence_type{ intelligence_type_empty }; //’m”\‚Ìí—Ş
+	dtl::type::size agent_type{ agent_type_empty }; //ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ç¨®é¡
+	dtl::type::size walking_type{ walking_type_empty }; //æ­©è¡Œã®ç¨®é¡
+	dtl::type::size intelligence_type{ intelligence_type_empty }; //çŸ¥èƒ½ã®ç¨®é¡
 
-	//ŒÂ‘Ì‚ÌƒXƒe[ƒ^ƒX
+	//å€‹ä½“ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 
-	dtl::type::size level{ 1 }; //ƒŒƒxƒ‹
-	dtl::type::size hp{ 30 }; //‘Ì—Í
-	dtl::type::size max_hp{ 50 }; //Å‘å‘Ì—Í
-	dtl::type::size hunger{ 50 }; //• Œ¸‚èƒQ[ƒW
-	dtl::type::size max_hunger{ 100 }; //Å‘å• Œ¸‚èƒQ[ƒW
+	dtl::type::size level{ 1 }; //ãƒ¬ãƒ™ãƒ«
+	dtl::type::size hp{ 30 }; //ä½“åŠ›
+	dtl::type::size max_hp{ 50 }; //æœ€å¤§ä½“åŠ›
+	dtl::type::size hunger{ 50 }; //è…¹æ¸›ã‚Šã‚²ãƒ¼ã‚¸
+	dtl::type::size max_hunger{ 100 }; //æœ€å¤§è…¹æ¸›ã‚Šã‚²ãƒ¼ã‚¸
 
-	dtl::type::size hunger_steps{}; //• Œ¸‚è•à”‚ÌƒJƒEƒ“ƒg
-	dtl::type::size max_hunger_steps{ 3 }; //• Œ¸‚è•à”
+	dtl::type::size hunger_steps{}; //è…¹æ¸›ã‚Šæ­©æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	dtl::type::size max_hunger_steps{ 3 }; //è…¹æ¸›ã‚Šæ­©æ•°
 
-	dtl::Vec2<Int_> position{}; //ˆÊ’u
-	Float_ move{}; //×‚©‚ÈˆÊ’u
-	dtl::type::size behavior_status{ behavior_empty }; //“®ì‚Ìó‘Ô
-	dtl::type::size direction{ direction_lower_middle }; //Œü‚«
+	dtl::Vec2<Int_> position{}; //ä½ç½®
+	Float_ move{}; //ç´°ã‹ãªä½ç½®
+	dtl::type::size behavior_status{ behavior_empty }; //å‹•ä½œã®çŠ¶æ…‹
+	dtl::type::size direction{ direction_lower_middle }; //å‘ã
 };

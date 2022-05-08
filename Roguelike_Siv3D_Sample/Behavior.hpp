@@ -1,3 +1,11 @@
+ï»¿/*#######################################################################################
+	Copyright (c) 2018-2022 As Project
+	https://github.com/AsPJT/Roguelike_Siv3D_Sample
+	wanotaitei@gmail.com
+
+	Distributed under the Boost Software License, Version 1.0. (See accompanying
+	file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#######################################################################################*/
 #pragma once
 
 template<typename Agent_>
@@ -122,14 +130,14 @@ bool AgentBehaviorMiddleRight(const Array_& array_, const Tile_ID_& tile_id, Age
 
 template<typename Int_, typename Array_, typename Tile_ID_, typename Agent_>
 void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent, Int_ up_, Int_ down_, Int_ left_, Int_ right_) {
-	if (agent.behavior_status != behavior_empty) return; //“®‚¢‚Ä‚¢‚½‚ç‘ŠúƒŠƒ^[ƒ“
+	if (agent.behavior_status != behavior_empty) return; //å‹•ã„ã¦ã„ãŸã‚‰æ—©æœŸãƒªã‚¿ãƒ¼ãƒ³
 	if (left_ == 0) left_ = (std::numeric_limits<Int_>::max)();
 	if (right_ == 0) right_ = (std::numeric_limits<Int_>::max)();
 	if (up_ == 0) up_ = (std::numeric_limits<Int_>::max)();
 	if (down_ == 0) down_ = (std::numeric_limits<Int_>::max)();
 
-	if (up_ == down_) { //ã‰º‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
-		if (left_ == right_) return; //¶‰E‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
+	if (up_ == down_) { //ä¸Šä¸‹ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„æ™‚
+		if (left_ == right_) return; //å·¦å³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„æ™‚
 		else if (left_ < right_) {
 			agent.direction = direction_middle_left;
 			AgentBehaviorMiddleLeft(array_, tile_id, agent);
@@ -140,8 +148,8 @@ void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& 
 		}
 		return;
 	}
-	//ã‰º‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é
-	if (left_ == right_) { //¶‰E‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
+	//ä¸Šä¸‹ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹æ™‚
+	if (left_ == right_) { //å·¦å³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„æ™‚
 		if (up_ < down_) {
 			agent.direction = direction_upper_middle;
 			AgentBehaviorUpperMiddle(array_, tile_id, agent);
@@ -152,7 +160,7 @@ void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& 
 		}
 		return;
 	}
-	//¶‰E‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é
+	//å·¦å³ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹æ™‚
 	if (up_ < down_) {
 		if (left_ < right_) {
 			if (!AgentBehaviorUpperLeft(array_, tile_id, agent)) {
