@@ -1,4 +1,13 @@
-﻿//DTL v0.4.14.0
+﻿/*#######################################################################################
+	Copyright (c) 2018-2022 As Project
+	https://github.com/AsPJT/Roguelike_Siv3D_Sample
+	wanotaitei@gmail.com
+
+	Distributed under the Boost Software License, Version 1.0. (See accompanying
+	file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#######################################################################################*/
+
+//DTL v0.4.14.0
 #include <DTL/Double/AutoTileLoop.hpp>
 #include <DTL/Double/Copy.hpp>
 #include <DTL/Type/SizeT.hpp>
@@ -61,8 +70,8 @@ struct TileID {
 //ゲームループクラス
 class MainFrame {
 
-	Font font{30};
-	Font scene_event_font{120};
+	Font font{ 30 };
+	Font scene_event_font{ 120 };
 
 	DrawFlag draw_flag{};
 	EventFlag event_flag{};
@@ -89,7 +98,7 @@ class MainFrame {
 	TileID{7,true,true} //6 食料
 	};
 
-	std::array<AutoTile<Color>, 8> ata { {
+	std::array<AutoTile<Color>, 8> ata{ {
 	AutoTile<Color>(makeTile1(Color(130,100,75)), 1, 2, 10, 1),
 	AutoTile<Color>(makeTile1(Color(130,160,200)), 1, 4, 10, 2),
 	AutoTile<Color>(makeTile1(Color(0,0,0)), 0, 0, 0, 0),
