@@ -99,10 +99,10 @@ class MainFrame {
 	};
 
 	std::array<AutoTile<Color>, 8> ata{ {
-	AutoTile<Color>(makeTile1(Color(130,100,75)), 1, 2, 10, 1),
-	AutoTile<Color>(makeTile1(Color(130,160,200)), 1, 4, 10, 2),
+	AutoTile<Color>(makeTile1(Color(130,100,75)), 1, 2, 10, 1), // 山
+	AutoTile<Color>(makeTile1(Color(130,160,200)), 1, 4, 10, 2), // 水
 	AutoTile<Color>(makeTile1(Color(0,0,0)), 0, 0, 0, 0),
-	AutoTile<Color>(makeTile1(Color(120,120,120)), 2, 1, 1, 1),
+	AutoTile<Color>(makeTile1(Color(120,120,120)), 2, 1, 1, 1), // 階段
 	AutoTile<Color>(makeTile1(Color(200,170,130)), 2, 1, 1, 1),
 	AutoTile<Color>(makeTile1(Color(40,40,40)), 5, 6, 4, 3),
 	AutoTile<Color>(makeTile1(Color(130,200,150)), 8, 1, 1, 1),
@@ -117,15 +117,15 @@ class MainFrame {
 	std::array<shape_t, 9> around{};
 	dtl::base::MatrixRange mr{ 0, 0, mapchip_width, mapchip_height };
 
-	enum : shape_t {
-		tile_id_water,
-		tile_id_wall,
-		tile_id_empty1,
-		tile_id_empty2,
-		tile_id_empty3,
-		tile_id_next,
-		tile_id_m1,
-		tile_id_m2
+	enum class TileType : shape_t {
+		water,
+		wall,
+		empty1,
+		empty2,
+		empty3,
+		next,
+		m1,
+		m2
 	};
 
 	std::array<std::array<shape_t, mapchip_width>, mapchip_height> matrix_{ {} }; //フロアの状態を格納する
@@ -166,7 +166,7 @@ class MainFrame {
 
 		for (dtl::type::size y{}; y < this->matrix_.size(); ++y)
 			for (dtl::type::size x{}; x < this->matrix_[y].size(); ++x) {
-				if (this->matrix_[y][x] == tile_id_wall) this->matrix_[y][x] = tile_id_water;
+				if (this->matrix_[y][x] == size_t(TileType::wall)) this->matrix_[y][x] = size_t(TileType::water);
 				if (this->matrix_[y][x] >= 2 && this->matrix_[y][x] <= 4) this->matrix_[y][x] = 2;
 			}
 		dtl::RandomRect<shape_t>(1, 0.6).drawOperator(this->matrix_, [](const shape_t value) {return value == 0; });
@@ -239,7 +239,7 @@ class MainFrame {
 						&& this->at_mat_[y][x] < 4
 						))
 					Rect(wssp2.x, wsspy, static_cast<int32>(wp.x), static_cast<int32>(wp.y)).draw(ata[4].tile_image);
-
+				
 				if (ata[tile_id[this->matrix_[y][x]].index].tile_type == 1) {
 					Rect(wssp2.x, wsspy, static_cast<int32>(wp.x), static_cast<int32>(wp.y)).draw(ata[tile_id[this->matrix_[y][x]].index].tile_image);
 				}
@@ -272,7 +272,7 @@ class MainFrame {
 	void EventFinishedWalking() {
 		UpdateAgentHunger(agent);
 		if (this->next_floor_time == 0)
-			this->next_floor_time = (this->matrix_[agent.position.y][agent.position.x] == tile_id_next
+			this->next_floor_time = (this->matrix_[agent.position.y][agent.position.x] == size_t(TileType::next)
 				&& (KeyW.pressed() == 0)
 				&& (KeyA.pressed() == 0)
 				&& (KeyS.pressed() == 0)

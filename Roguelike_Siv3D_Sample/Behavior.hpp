@@ -30,15 +30,15 @@ void AgentBehaviorAround(Array_& array_, const dtl::base::Vec2<Int_>& vec2_, con
 	const Int_ end_x{ static_cast<Int_>((vec2_.x >= static_cast<Int_>((mr_.x + mr_.w) - 1)) ? static_cast<Int_>(mr_.x) : (vec2_.x + 1))};
 	const Int_ end_y{ static_cast<Int_>((vec2_.y >= static_cast<Int_>((mr_.y + mr_.h) - 1)) ? static_cast<Int_>(mr_.y) : (vec2_.y + 1)) };
 
-	array_[direction_lower_middle] = dtl::base::Vec2<Int_>(vec2_.x, end_y);
-	array_[direction_lower_left] = dtl::base::Vec2<Int_>(start_x, end_y);
-	array_[direction_middle_left] = dtl::base::Vec2<Int_>(start_x, vec2_.y);
-	array_[direction_lower_right] = dtl::base::Vec2<Int_>(end_x, end_y);
-	array_[direction_middle_right] = dtl::base::Vec2<Int_>(end_x, vec2_.y);
-	array_[direction_upper_left] = dtl::base::Vec2<Int_>(start_x, start_y);
-	array_[direction_upper_middle] = dtl::base::Vec2<Int_>(vec2_.x, start_y);
-	array_[direction_upper_right] = dtl::base::Vec2<Int_>(end_x, start_y);
-	array_[direction_middle] = dtl::base::Vec2<Int_>(vec2_.x, vec2_.y);
+	array_[size_t(DirectionType::lower_middle)] = dtl::base::Vec2<Int_>(vec2_.x, end_y);
+	array_[size_t(DirectionType::lower_left)] = dtl::base::Vec2<Int_>(start_x, end_y);
+	array_[size_t(DirectionType::middle_left)] = dtl::base::Vec2<Int_>(start_x, vec2_.y);
+	array_[size_t(DirectionType::lower_right)] = dtl::base::Vec2<Int_>(end_x, end_y);
+	array_[size_t(DirectionType::middle_right)] = dtl::base::Vec2<Int_>(end_x, vec2_.y);
+	array_[size_t(DirectionType::upper_left)] = dtl::base::Vec2<Int_>(start_x, start_y);
+	array_[size_t(DirectionType::upper_middle)] = dtl::base::Vec2<Int_>(vec2_.x, start_y);
+	array_[size_t(DirectionType::upper_right)] = dtl::base::Vec2<Int_>(end_x, start_y);
+	array_[size_t(DirectionType::middle)] = dtl::base::Vec2<Int_>(vec2_.x, vec2_.y);
 }
 template<typename Array_, typename Vec2Array_, typename Vec2_, typename Matrix_>
 void AgentBehaviorAroundMatrix(Matrix_&& matrix_, Vec2Array_& vec2_array_, Array_& array_, const Vec2_ vec2_, const dtl::base::MatrixRange& mr_) {
@@ -49,80 +49,80 @@ void AgentBehaviorAroundMatrix(Matrix_&& matrix_, Vec2Array_& vec2_array_, Array
 
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorUpperLeft(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	agent.direction = direction_upper_left;
-	if (tile_id[array_[direction_upper_left]].can_pass
-		&& tile_id[array_[direction_upper_middle]].can_overtake
-		&& tile_id[array_[direction_middle_left]].can_overtake
+	agent.direction = DirectionType::upper_left;
+	if (tile_id[array_[size_t(DirectionType::upper_left)]].can_pass
+		&& tile_id[array_[size_t(DirectionType::upper_middle)]].can_overtake
+		&& tile_id[array_[size_t(DirectionType::middle_left)]].can_overtake
 		) {
-		agent.behavior_status = behavior_upper_left;
+		agent.status = BehaviorType::upper_left;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorUpperRight(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	agent.direction = direction_upper_right;
-	if (tile_id[array_[direction_upper_right]].can_pass
-		&& tile_id[array_[direction_upper_middle]].can_overtake
-		&& tile_id[array_[direction_middle_right]].can_overtake
+	agent.direction = DirectionType::upper_right;
+	if (tile_id[array_[size_t(DirectionType::upper_right)]].can_pass
+		&& tile_id[array_[size_t(DirectionType::upper_middle)]].can_overtake
+		&& tile_id[array_[size_t(DirectionType::middle_right)]].can_overtake
 		) {
-		agent.behavior_status = behavior_upper_right;
+		agent.status = BehaviorType::upper_right;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorUpperMiddle(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	if (tile_id[array_[direction_upper_middle]].can_pass) {
-		agent.behavior_status = behavior_upper_middle;
+	if (tile_id[array_[size_t(DirectionType::upper_middle)]].can_pass) {
+		agent.status = BehaviorType::upper_middle;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorLowerLeft(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	agent.direction = direction_lower_left;
-	if (tile_id[array_[direction_lower_left]].can_pass
-		&& tile_id[array_[direction_lower_middle]].can_overtake
-		&& tile_id[array_[direction_middle_left]].can_overtake
+	agent.direction = DirectionType::lower_left;
+	if (tile_id[array_[size_t(DirectionType::lower_left)]].can_pass
+		&& tile_id[array_[size_t(DirectionType::lower_middle)]].can_overtake
+		&& tile_id[array_[size_t(DirectionType::middle_left)]].can_overtake
 		) {
-		agent.behavior_status = behavior_lower_left;
+		agent.status = BehaviorType::lower_left;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorLowerRight(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	agent.direction = direction_lower_right;
-	if (tile_id[array_[direction_lower_right]].can_pass
-		&& tile_id[array_[direction_lower_middle]].can_overtake
-		&& tile_id[array_[direction_middle_right]].can_overtake
+	agent.direction = DirectionType::lower_right;
+	if (tile_id[array_[size_t(DirectionType::lower_right)]].can_pass
+		&& tile_id[array_[size_t(DirectionType::lower_middle)]].can_overtake
+		&& tile_id[array_[size_t(DirectionType::middle_right)]].can_overtake
 		) {
-		agent.behavior_status = behavior_lower_right;
+		agent.status = BehaviorType::lower_right;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorLowerMiddle(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	if (tile_id[array_[direction_lower_middle]].can_pass) {
-		agent.behavior_status = behavior_lower_middle;
+	if (tile_id[array_[size_t(DirectionType::lower_middle)]].can_pass) {
+		agent.status = BehaviorType::lower_middle;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorMiddleLeft(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	if (tile_id[array_[direction_middle_left]].can_pass) {
-		agent.behavior_status = behavior_middle_left;
+	if (tile_id[array_[size_t(DirectionType::middle_left)]].can_pass) {
+		agent.status = BehaviorType::middle_left;
 		return true;
 	}
 	return false;
 }
 template<typename Array_, typename Tile_ID_, typename Agent_>
 bool AgentBehaviorMiddleRight(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent) {
-	if (tile_id[array_[direction_middle_right]].can_pass) {
-		agent.behavior_status = behavior_middle_right;
+	if (tile_id[array_[size_t(DirectionType::middle_right)]].can_pass) {
+		agent.status = BehaviorType::middle_right;
 		return true;
 	}
 	return false;
@@ -130,7 +130,7 @@ bool AgentBehaviorMiddleRight(const Array_& array_, const Tile_ID_& tile_id, Age
 
 template<typename Int_, typename Array_, typename Tile_ID_, typename Agent_>
 void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& agent, Int_ up_, Int_ down_, Int_ left_, Int_ right_) {
-	if (agent.behavior_status != behavior_empty) return; //動いていたら早期リターン
+	if (agent.status != BehaviorType::empty) return; //動いていたら早期リターン
 	if (left_ == 0) left_ = (std::numeric_limits<Int_>::max)();
 	if (right_ == 0) right_ = (std::numeric_limits<Int_>::max)();
 	if (up_ == 0) up_ = (std::numeric_limits<Int_>::max)();
@@ -139,11 +139,11 @@ void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& 
 	if (up_ == down_) { //上下が押されていない時
 		if (left_ == right_) return; //左右が押されていない時
 		else if (left_ < right_) {
-			agent.direction = direction_middle_left;
+			agent.direction = DirectionType::middle_left;
 			AgentBehaviorMiddleLeft(array_, tile_id, agent);
 		}
 		else {
-			agent.direction = direction_middle_right;
+			agent.direction = DirectionType::middle_right;
 			AgentBehaviorMiddleRight(array_, tile_id, agent);
 		}
 		return;
@@ -151,11 +151,11 @@ void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& 
 	//上下が押されている時
 	if (left_ == right_) { //左右が押されていない時
 		if (up_ < down_) {
-			agent.direction = direction_upper_middle;
+			agent.direction = DirectionType::upper_middle;
 			AgentBehaviorUpperMiddle(array_, tile_id, agent);
 		}
 		else {
-			agent.direction = direction_lower_middle;
+			agent.direction = DirectionType::lower_middle;
 			AgentBehaviorLowerMiddle(array_, tile_id, agent);
 		}
 		return;
@@ -211,26 +211,26 @@ void UpdateAgentBehavior(const Array_& array_, const Tile_ID_& tile_id, Agent_& 
 
 template<typename Array_, typename Agent_>
 bool UpdateAgentMove(Array_& array_vec2_, Agent_& agent) {
-	if (agent.behavior_status == behavior_empty) return false;
+	if (agent.status == BehaviorType::empty) return false;
 	agent.move += 0.1f;
 	if (agent.move < 1.0f) return false;
 	agent.move = 0.0f;
-	agent.position = array_vec2_[agent.behavior_status];
-	agent.behavior_status = behavior_empty;
+	agent.position = array_vec2_[size_t(agent.status)];
+	agent.status = BehaviorType::empty;
 	return true;
 }
 
 template<typename Agent_>
 void UpdateAgentStatus(Agent_& agent, dtl::Vec2<float>& mc) {
 	mc = dtl::Vec2<float>(agent.position.x + 0.5f, agent.position.y + 0.5f);
-	switch (agent.behavior_status) {
-	case behavior_upper_middle:mc += dtl::Vec2<float>(0.0f, -agent.move); break;
-	case behavior_lower_middle:mc += dtl::Vec2<float>(0.0f, +agent.move); break;
-	case behavior_lower_right:mc += dtl::Vec2<float>(+agent.move, +agent.move); break;
-	case behavior_lower_left:mc += dtl::Vec2<float>(-agent.move, +agent.move); break;
-	case behavior_middle_left:mc += dtl::Vec2<float>(-agent.move, 0.0f); break;
-	case behavior_middle_right:mc += dtl::Vec2<float>(+agent.move, 0.0f); break;
-	case behavior_upper_right:mc += dtl::Vec2<float>(+agent.move, -agent.move); break;
-	case behavior_upper_left:mc += dtl::Vec2<float>(-agent.move, -agent.move); break;
+	switch (agent.status) {
+	case BehaviorType::upper_middle:mc += dtl::Vec2<float>(0.0f, -agent.move); break;
+	case BehaviorType::lower_middle:mc += dtl::Vec2<float>(0.0f, +agent.move); break;
+	case BehaviorType::lower_right:mc += dtl::Vec2<float>(+agent.move, +agent.move); break;
+	case BehaviorType::lower_left:mc += dtl::Vec2<float>(-agent.move, +agent.move); break;
+	case BehaviorType::middle_left:mc += dtl::Vec2<float>(-agent.move, 0.0f); break;
+	case BehaviorType::middle_right:mc += dtl::Vec2<float>(+agent.move, 0.0f); break;
+	case BehaviorType::upper_right:mc += dtl::Vec2<float>(+agent.move, -agent.move); break;
+	case BehaviorType::upper_left:mc += dtl::Vec2<float>(-agent.move, -agent.move); break;
 	}
 }
