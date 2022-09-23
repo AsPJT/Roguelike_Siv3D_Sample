@@ -1,8 +1,8 @@
 # Roguelike_Siv3D_Sample 🦇
 
-OpenSiv3D v0.6.3で動作確認したローグライクサンプル。
+OpenSiv3D v0.6.5で動作確認したローグライクサンプル。
 
-Rogue-like sample confirmed to work with OpenSiv3D v0.6.3.
+Rogue-like sample confirmed to work with OpenSiv3D v0.6.5.
 
 ![Picture](./Window.png)
 
