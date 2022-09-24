@@ -28,23 +28,23 @@
 constexpr int32 window_w{ 800 }; //ウィンドウ横サイズ
 constexpr int32 window_h{ 600 }; //ウィンドウ縦サイズ
 
-constexpr dtl::type::size mapchip_width{ 32 }; //マップ横サイズ
-constexpr dtl::type::size mapchip_height{ 24 }; //マップ縦サイズ
-constexpr dtl::type::size mapchip_pixel_size{ 80 }; //マップチップ1マス分のピクセルサイズ
+constexpr size_t mapchip_width{ 32 }; //マップ横サイズ
+constexpr size_t mapchip_height{ 24 }; //マップ縦サイズ
+constexpr size_t mapchip_pixel_size{ 80 }; //マップチップ1マス分のピクセルサイズ
 
 template<typename Array_>
 class AutoTile {
 public:
 	Array_ tile_image{};
-	dtl::type::size tile_type{};
-	dtl::type::size x_num{};
-	dtl::type::size y_num{};
-	dtl::type::size move_num{};
+	size_t tile_type{};
+	size_t x_num{};
+	size_t y_num{};
+	size_t move_num{};
 
-	dtl::type::size move_count{};
+	size_t move_count{};
 
 	template<typename Array_Ptr_>
-	AutoTile(Array_Ptr_&& tile_image_, const dtl::type::size tile_type_, const dtl::type::size, const dtl::type::size, const dtl::type::size)
+	AutoTile(Array_Ptr_&& tile_image_, const size_t tile_type_, const size_t, const size_t, const size_t)
 		:tile_image(std::move(tile_image_)), tile_type(tile_type_), x_num(1), y_num(1), move_num(1) {}
 };
 
@@ -61,7 +61,7 @@ struct AutoTile4 {
 };
 
 struct TileID {
-	dtl::type::size index{};
+	size_t index{};
 	bool can_pass{ false }; //通行できるか
 	bool can_overtake{ false }; //斜め移動ですり抜けできるか
 
@@ -76,16 +76,16 @@ class MainFrame {
 	DrawFlag draw_flag{};
 	EventFlag event_flag{};
 
-	dtl::type::size next_floor_time{};
+	size_t next_floor_time{};
 
 	//キーが押されているフレーム数を格納する
 	std::array<std::int_fast32_t, 256> key_frame{ {} };
 	std::bitset<256> up_key{};
 	std::bitset<256> down_key{};
 
-	dtl::type::size floor_count{ 1 };
+	size_t floor_count{ 1 };
 
-	dtl::type::size max_floor{ 1 };
+	size_t max_floor{ 1 };
 
 	std::array<TileID, 8> tile_id{
 	TileID{0,false,false}, //0 水床
@@ -134,7 +134,7 @@ class MainFrame {
 	std::array<std::array<shape_t, mapchip_width>, mapchip_height> item_{}; //フロアのアイテムを格納する
 
 	//カメラ設定
-	dtl::MatrixRange win{ 0, 0, static_cast<dtl::type::size>(window_w), static_cast<dtl::type::size>(window_h) }; //描画範囲
+	dtl::MatrixRange win{ 0, 0, static_cast<size_t>(window_w), static_cast<size_t>(window_h) }; //描画範囲
 	dtl::MatrixVec2 wp{ mapchip_pixel_size, mapchip_pixel_size }; //マスのサイズ
 	dtl::Vec2<float> mc{ mapchip_width / 2.0f, mapchip_height / 2.0f }; //視点位置
 	dtl::Vec2<int32> wssp{}; //始点座標
@@ -152,8 +152,8 @@ class MainFrame {
 		dtl::ReplaceSome<shape_t>(10, 6, 2).draw(this->item_);
 		dtl::ReplaceSome<shape_t>(10, 7, 2).draw(this->item_);
 
-		for (dtl::type::size i{}; i < this->matrix_.size(); ++i)
-			for (dtl::type::size j{}; j < this->matrix_[i].size(); ++j)
+		for (size_t i{}; i < this->matrix_.size(); ++i)
+			for (size_t j{}; j < this->matrix_[i].size(); ++j)
 				if (this->matrix_[i][j] == 2) {
 					agent.position.x = static_cast<int32>(j);
 					agent.position.y = static_cast<int32>(i);
@@ -164,8 +164,8 @@ class MainFrame {
 		if (this->look_[agent.position.y][agent.position.x] == 2) dtl::Bucket<shape_t>(10, agent.position.x, agent.position.y).draw(this->look_);
 		else if (this->look_[agent.position.y][agent.position.x] >= 2) this->look_[agent.position.y][agent.position.x] = 10;
 
-		for (dtl::type::size y{}; y < this->matrix_.size(); ++y)
-			for (dtl::type::size x{}; x < this->matrix_[y].size(); ++x) {
+		for (size_t y{}; y < this->matrix_.size(); ++y)
+			for (size_t x{}; x < this->matrix_[y].size(); ++x) {
 				if (this->matrix_[y][x] == size_t(TileType::wall)) this->matrix_[y][x] = size_t(TileType::water);
 				if (this->matrix_[y][x] >= 2 && this->matrix_[y][x] <= 4) this->matrix_[y][x] = 2;
 			}
@@ -205,8 +205,8 @@ class MainFrame {
 
 	void DrawSubMap() { //サブマップの描画
 		int32 bai = 8;
-		for (dtl::type::size y{}; y < this->matrix_.size(); ++y)
-			for (dtl::type::size x{}; x < this->matrix_[y].size(); ++x)
+		for (size_t y{}; y < this->matrix_.size(); ++y)
+			for (size_t x{}; x < this->matrix_[y].size(); ++x)
 				if (this->look_[y][x] >= 10) {
 					if (this->matrix_[y][x] == 5) Rect(static_cast<int32>(x) * bai, static_cast<int32>(y) * bai + 200, bai, bai).draw(Color(50, 255, 50, 100));
 					else Rect(static_cast<int32>(x) * bai, static_cast<int32>(y) * bai + 200, bai, bai).draw(Color(255, 255, 255, 100));
@@ -226,10 +226,10 @@ class MainFrame {
 		wsss2.x %= static_cast<int32>(this->matrix_.front().size());
 		wsss2.y %= static_cast<int32>(this->matrix_.size());
 
-		for (dtl::type::size y{ static_cast<dtl::type::size>(wsss2.y) };; ++y) {
+		for (size_t y{ static_cast<size_t>(wsss2.y) };; ++y) {
 			y %= static_cast<int32>(this->matrix_.size());
 			wssp2.x = wssp.x;
-			for (dtl::type::size x{ static_cast<dtl::type::size>(wsss2.x) };; ++x) {
+			for (size_t x{ static_cast<size_t>(wsss2.x) };; ++x) {
 				x %= static_cast<int32>(this->matrix_[y].size());
 
 				int32 wsspy = wssp2.y + static_cast<int32>(win.y);

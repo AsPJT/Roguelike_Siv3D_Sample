@@ -9,26 +9,26 @@
 #pragma once
 
 
-enum class AgentType : dtl::type::size {
+enum class AgentType : size_t {
 	empty,
 	player,
 	enemy
 };
 
-enum class WalkingType : dtl::type::size {
+enum class WalkingType : size_t {
 	empty,
 	direction0,
 	direction4,
 	direction8
 };
 
-enum class IntelligenceType : dtl::type::size {
+enum class IntelligenceType : size_t {
 	empty,
 	player,
 	enemy
 };
 
-enum class BehaviorType : dtl::type::size {
+enum class BehaviorType : size_t {
 	lower_middle,
 	lower_left,
 	middle_left,
@@ -41,7 +41,7 @@ enum class BehaviorType : dtl::type::size {
 	empty
 };
 
-enum class DirectionType : dtl::type::size {
+enum class DirectionType : size_t {
 	lower_middle,
 	lower_left,
 	middle_left,
@@ -64,14 +64,14 @@ struct Agent {
 
 	//個体のステータス
 
-	dtl::type::size level{ 1 }; //レベル
-	dtl::type::size hp{ 30 }; //体力
-	dtl::type::size max_hp{ 50 }; //最大体力
-	dtl::type::size hunger{ 50 }; //腹減りゲージ
-	dtl::type::size max_hunger{ 100 }; //最大腹減りゲージ
+	size_t level{ 1 }; //レベル
+	size_t hp{ 30 }; //体力
+	size_t max_hp{ 50 }; //最大体力
+	size_t hunger{ 50 }; //腹減りゲージ
+	size_t max_hunger{ 100 }; //最大腹減りゲージ
 
-	dtl::type::size hunger_steps{}; //腹減り歩数のカウント
-	dtl::type::size max_hunger_steps{ 3 }; //腹減り歩数
+	size_t hunger_steps{}; //腹減り歩数のカウント
+	size_t max_hunger_steps{ 3 }; //腹減り歩数
 
 	dtl::Vec2<Int_> position{}; //位置
 	Float_ move{}; //細かな位置

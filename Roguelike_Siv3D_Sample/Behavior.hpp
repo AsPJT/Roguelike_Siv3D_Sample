@@ -43,7 +43,7 @@ void AgentBehaviorAround(Array_& array_, const dtl::base::Vec2<Int_>& vec2_, con
 template<typename Array_, typename Vec2Array_, typename Vec2_, typename Matrix_>
 void AgentBehaviorAroundMatrix(Matrix_&& matrix_, Vec2Array_& vec2_array_, Array_& array_, const Vec2_ vec2_, const dtl::base::MatrixRange& mr_) {
 	AgentBehaviorAround(vec2_array_, vec2_, mr_);
-	for (dtl::type::size i{}; i < 9; ++i)
+	for (size_t i{}; i < 9; ++i)
 		array_[i] = matrix_.get(vec2_array_[i].x, vec2_array_[i].y);
 }
 
