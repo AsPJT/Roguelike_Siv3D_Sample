@@ -10,7 +10,6 @@
 //DTL v0.4.14.0
 #include <DTL/Double/AutoTileLoop.hpp>
 #include <DTL/Double/Copy.hpp>
-#include <DTL/Type/SizeT.hpp>
 #include <DTL/Shape/RandomRect.hpp>
 #include <DTL/Shape/Rect.hpp>
 #include <DTL/Shape/RogueLike.hpp>
@@ -365,8 +364,8 @@ public:
 		this->Draw(); //画面を描画する
 
 		if (this->next_floor_time >= 1) {
-			Rect(0, 0, window_w, window_h).draw(Color(0, 0, 0, ((this->next_floor_time >= 250) ?
-				504 - static_cast<int32>(this->next_floor_time) : static_cast<int32>(this->next_floor_time))));
+			Rect(0, 0, window_w, window_h).draw(Color(0, 0, 0, s3d::Color::value_type(((this->next_floor_time >= 250) ?
+				504 - static_cast<int32>(this->next_floor_time) : static_cast<int32>(this->next_floor_time)))));
 
 			if (this->event_flag.is_next_floor_time) {
 				scene_event_font(U"B", floor_count + ((this->next_floor_time >= 256) ? 0 : 1), U"F").draw(window_w / 8, window_h / 8, Color(250, 250, 250));

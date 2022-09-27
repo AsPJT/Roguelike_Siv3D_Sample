@@ -55,26 +55,26 @@ enum class DirectionType : size_t {
 
 template<typename Int_, typename Float_>
 struct Agent {
-	
+
 	//基本的な情報
-	
-	AgentType agent_type{ AgentType::empty }; //エージェントの種類
-	WalkingType walking_type{ WalkingType::empty }; //歩行の種類
-	IntelligenceType intelligence_type{ IntelligenceType::empty }; //知能の種類
+
+	AgentType agent_type = AgentType::empty; //エージェントの種類
+	WalkingType walking_type = WalkingType::empty; //歩行の種類
+	IntelligenceType intelligence_type = IntelligenceType::empty; //知能の種類
 
 	//個体のステータス
 
-	size_t level{ 1 }; //レベル
-	size_t hp{ 30 }; //体力
-	size_t max_hp{ 50 }; //最大体力
-	size_t hunger{ 50 }; //腹減りゲージ
-	size_t max_hunger{ 100 }; //最大腹減りゲージ
+	size_t level = 1; //レベル
+	size_t hp = 30; //体力
+	size_t max_hp = 50; //最大体力
+	size_t hunger = 50; //腹減りゲージ
+	size_t max_hunger = 100; //最大腹減りゲージ
 
-	size_t hunger_steps{}; //腹減り歩数のカウント
-	size_t max_hunger_steps{ 3 }; //腹減り歩数
+	size_t hunger_steps = 0; //腹減り歩数のカウント
+	size_t max_hunger_steps = 3; //腹減り歩数
 
 	dtl::Vec2<Int_> position{}; //位置
 	Float_ move{}; //細かな位置
-	BehaviorType status{ BehaviorType::empty }; //動作の状態
-	DirectionType direction{ DirectionType::lower_middle }; //向き
+	BehaviorType status = BehaviorType::empty; //動作の状態
+	DirectionType direction = DirectionType::lower_middle; //向き
 };
